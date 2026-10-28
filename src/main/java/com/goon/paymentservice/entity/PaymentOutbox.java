@@ -2,6 +2,8 @@ package com.goon.paymentservice.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 import java.time.Instant;
 import java.util.UUID;
 
@@ -10,9 +12,12 @@ import java.util.UUID;
         @Index(name = "idx_payment_outbox_pending", columnList = "published_at,created_at"))
 @Getter @Setter @NoArgsConstructor
 public class PaymentOutbox {
-    @Id @Column(name = "event_id", nullable = false, updatable = false)
+    @Id
+    @JdbcTypeCode(SqlTypes.BINARY)
+    @Column(name = "event_id", nullable = false, updatable = false, columnDefinition = "BINARY(16)")
     private UUID eventId = UUID.randomUUID();
-    @Column(name = "ride_id", nullable = false)
+    @JdbcTypeCode(SqlTypes.BINARY)
+    @Column(name = "ride_id", nullable = false, columnDefinition = "BINARY(16)")
     private UUID rideId;
     @Column(nullable = false, length = 64)
     private String topic;

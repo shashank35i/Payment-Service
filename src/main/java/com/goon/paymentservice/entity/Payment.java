@@ -2,6 +2,8 @@ package com.goon.paymentservice.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 import java.time.Instant;
 import java.util.UUID;
 
@@ -14,11 +16,14 @@ import java.util.UUID;
 @Getter @Setter @NoArgsConstructor
 public class Payment {
     @Id
-    @Column(name = "payment_id", nullable = false, updatable = false)
+    @JdbcTypeCode(SqlTypes.BINARY)
+    @Column(name = "payment_id", nullable = false, updatable = false, columnDefinition = "BINARY(16)")
     private UUID paymentId;
-    @Column(name = "ride_id", nullable = false, updatable = false)
+    @JdbcTypeCode(SqlTypes.BINARY)
+    @Column(name = "ride_id", nullable = false, updatable = false, columnDefinition = "BINARY(16)")
     private UUID rideId;
-    @Column(name = "customer_id", nullable = false, updatable = false)
+    @JdbcTypeCode(SqlTypes.BINARY)
+    @Column(name = "customer_id", nullable = false, updatable = false, columnDefinition = "BINARY(16)")
     private UUID customerId;
     @Column(name = "amount_minor", nullable = false, updatable = false)
     private long amountMinor;
